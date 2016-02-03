@@ -3,6 +3,19 @@
 import React from 'react';
 import Note from './Note.jsx';
 
+//this componetent needs to get the notes property from the parent
+export default ({notes}) => {
+	return (
+		<ul>{notes.map((note) =>
+			<li key={note.id}>
+				<Note task={note.task} />
+			</li>
+			)}
+		</ul>
+	)
+}
+
+{/*
 export default ({notes, onEdit, onDelete}) => {
   return (
     <ul className="notes">{notes.map(note =>
@@ -15,3 +28,4 @@ export default ({notes, onEdit, onDelete}) => {
     )}</ul>
   );
 }
+*/}

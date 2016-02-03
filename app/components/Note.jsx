@@ -2,6 +2,49 @@
 
 import React from 'react';
 
+export default class Note extends React.Component{
+
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			editing: false
+		};
+	}
+
+	render() {
+		if (this.state.editing) {
+			return this.renderEdit();
+		} else {
+			return this.renderNote();
+		}
+
+	}
+
+	renderEdit = () => {
+		//console.log('todo input box');
+		return (
+			<input/>
+			);
+	};
+
+	renderNote = () => {
+		return (
+			<div onClick={this.edit()}>{this.props.task}</div>
+			);
+		console.log('todo renderNote()');
+	};
+
+	edit = () => {
+		this.setState({
+			editing: true
+		});
+	};
+
+}
+
+{/*
+
 export default class Note extends React.Component {
   constructor(props) {
     super(props);
@@ -65,3 +108,5 @@ export default class Note extends React.Component {
     }
   };
 }
+
+ */}
