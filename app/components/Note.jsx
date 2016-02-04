@@ -13,26 +13,27 @@ export default class Note extends React.Component{
 	}
 
 	render() {
+		// Render the component differently based on state.
 		if (this.state.editing) {
 			return this.renderEdit();
-		} else {
-			return this.renderNote();
 		}
 
+		return this.renderNote();
 	}
 
+
+
 	renderEdit = () => {
-		//console.log('todo input box');
 		return (
-			<input/>
-			);
+			<input type="text" ref={(e) => e ? e.selectionStart = this.props.task.length : null} autoFocus="true" defaultValue={this.props.task} onBlur={this.finishEdit} onKeyPress={this.checkEnter} />
+		);
 	};
 
 	renderNote = () => {
+		console.log('todo renderNote()');
 		return (
 			<div onClick={this.edit()}>{this.props.task}</div>
 			);
-		console.log('todo renderNote()');
 	};
 
 	edit = () => {
@@ -41,6 +42,23 @@ export default class Note extends React.Component{
 		});
 	};
 
+	checkEnter = (e) => {
+		if (e.key === 'Enter') {
+			console.log('clicked enter');
+			this.finishEdit(e);
+		}
+	};
+
+	finishEdit = (e) => {
+		const value = e.target.value;
+		console.log('value: ' + value);
+		if (this.props.onEdit && value.trim()) {
+			this.props.onEdit(value);
+			this.setState({
+				editing: false
+			});
+		}
+	};
 }
 
 {/*
