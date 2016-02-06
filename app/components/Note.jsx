@@ -21,21 +21,30 @@ export default class Note extends React.Component{
 		return this.renderNote();
 	}
 
-
-
-	renderEdit = () => {
+	renderNote = () => {
+		const onDelete = this.props.onDelete;
 		return (
-			<input type="text" ref={(e) => e ? e.selectionStart = this.props.task.length : null} autoFocus="true" defaultValue={this.props.task} onBlur={this.finishEdit} onKeyPress={this.checkEnter} />
+			<div onClick={this.edit}>
+				<span className="task">{this.props.task}</span>
+				{onDelete ? this.renderDelete() : null}
+			</div>
 		);
 	};
 
-	renderNote = () => {
-		console.log('todo renderNote()');
+	renderEdit = () => {
 		return (
-			<div onClick={this.edit()}>{this.props.task}</div>
-			);
+			<input type="text" ref={(e) => e ? e.selectionStart = this.props.task.length : null} 
+				autoFocus="true" 
+				defaultValue={this.props.task} 
+				onBlur={this.finishEdit} 
+				onKeyPress={this.checkEnter} />
+		);
 	};
 
+//getting error with this function
+//Warning: setState(...): Cannot update during an existing state transition 
+//(such as within `render`). 
+//Render methods should be a pure function of props and state.
 	edit = () => {
 		this.setState({
 			editing: true
@@ -58,6 +67,10 @@ export default class Note extends React.Component{
 				editing: false
 			});
 		}
+	};
+
+	renderDelete = () => {
+		return <button className="delete-note" onClick={this.props.onDelete}>x</button>
 	};
 }
 

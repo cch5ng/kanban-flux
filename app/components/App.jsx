@@ -28,13 +28,9 @@ export default class App extends React.Component {
 
 		return (
 			<div>
-				<button onClick={this.addNote}>+</button>
-				<Notes notes={notes} onEdit={this.editNote} />
-				{/*<button className="add-note" onClick={this.addNote}>+</button>
-				<Notes notes={notes}
-				  onEdit={this.editNote}
-				  onDelete={this.deleteNote} />*/}
-		  </div>
+				<button className="add-note" onClick={this.addNote}>+</button>
+				<Notes notes={notes} onEdit={this.editNote} onDelete={this.deleteNote} />
+			</div>
 		);
 	}
 //helper is outside of the render but it needs to end with a semicolon to function
@@ -51,7 +47,7 @@ export default class App extends React.Component {
 	editNote = (id, task) => {
 		console.log('id: ' + id);
 		console.log('task: ' + task);
-		const notes = this.state.notes.map((note) => {
+		const notes = this.state.notes.map(note => {
 			if (id === note.id && task) {
 				note.task = task;
 			}
@@ -60,6 +56,11 @@ export default class App extends React.Component {
 		this.setState({notes: notes});
 	};
 
+	deleteNote = (id) => {
+		this.setState({
+			notes: this.state.notes.filter(note => note.id !== id)
+		})
+	};
 
 
   // deleteNote = (id) => {
